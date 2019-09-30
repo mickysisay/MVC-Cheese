@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
@@ -16,14 +17,14 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 @Controller
 @RequestMapping("cheese")
 public class cheeseController {
-   static ArrayList <String> cheeses = new ArrayList<>();
-
+   //static ArrayList <String> cheeses = new ArrayList<>();
+   static HashMap <String , String> cheeses = new HashMap<>();
     @RequestMapping(value = "")
     public String index(Model model){
 
 
         model.addAttribute("cheeses",cheeses);
-        model.addAttribute("title","my cheese");
+        model.addAttribute("title","My Cheeses");
         return "cheese/index";
     }
      @RequestMapping(value="add",method = GET)
@@ -32,8 +33,8 @@ public class cheeseController {
         return "cheese/add";
      }
     @RequestMapping(value="add", method = POST)
-    public String addCheese(@RequestParam String name){
-       cheeses.add(name);
+    public String addCheese(@RequestParam String name,@RequestParam String description){
+       cheeses.put(name,description);
        return "redirect:";
     }
 }
